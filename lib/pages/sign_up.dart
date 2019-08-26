@@ -26,19 +26,17 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
-          SingleChildScrollView(
-            child: Padding(
-              padding:
-                  EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
-              child: Column(
-                children: <Widget>[
-                  _buildLogo(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: _buildForm(),
-                  ),
-                ],
-              ),
+          Padding(
+            padding:
+                EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
+            child: Column(
+              children: <Widget>[
+                _buildLogo(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: _buildForm(),
+                ),
+              ],
             ),
           ),
         ],

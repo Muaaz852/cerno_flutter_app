@@ -24,19 +24,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
-          SingleChildScrollView(
-            child: Padding(
-              padding:
-                  EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
-              child: Column(
-                children: <Widget>[
-                  _buildLogo(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: _buildForm(),
-                  ),
-                ],
-              ),
+          Padding(
+            padding:
+                EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
+            child: Column(
+              children: <Widget>[
+                _buildLogo(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: _buildForm(),
+                ),
+              ],
             ),
           ),
         ],
