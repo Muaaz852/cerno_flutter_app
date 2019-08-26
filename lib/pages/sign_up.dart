@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'package:cerno_flutter_app/widgets/backgroun_gradient.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final TextEditingController _emailText = TextEditingController();
   final TextEditingController _passwordText = TextEditingController();
+  final TextEditingController _confirmPasswordText = TextEditingController();
 
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -26,12 +28,13 @@ class _LoginPageState extends State<LoginPage> {
           BackgroundGradient(),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(top: screenSize.height / 7, bottom: 25.0),
+              padding:
+                  EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
               child: Column(
                 children: <Widget>[
                   _buildLogo(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
+                    padding: const EdgeInsets.only(top: 20.0),
                     child: _buildForm(),
                   ),
                 ],
@@ -56,11 +59,15 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           _buildEmailTextFormField(),
-          SizedBox(height: 20.0),
+          SizedBox(height: 15.0),
           _buildPasswordTextFormField(),
-          SizedBox(height: 40.0),
-          _buildSignInButton(),
-          SizedBox(height: 30.0),
+          SizedBox(
+            height: 15.0
+          ),
+          _buildConfirmPasswordTextFormField(),
+          SizedBox(height: 25.0),
+          _buildSignUpButton(),
+          SizedBox(height: 20.0),
           _buildBottomWidget(),
         ],
       ),
@@ -86,14 +93,9 @@ class _LoginPageState extends State<LoginPage> {
           borderSide: BorderSide(color: Colors.grey),
         ),
         errorText: '',
-        errorStyle: TextStyle(
-          color: Colors.white70
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey
-          )
-        ),
+        errorStyle: TextStyle(color: Colors.white70),
+        focusedErrorBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
         prefixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(start: 10.0, end: 30.0),
           child: Icon(
@@ -141,15 +143,10 @@ class _LoginPageState extends State<LoginPage> {
         errorBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
-        errorStyle: TextStyle(
-            color: Colors.white70
-        ),
+        errorStyle: TextStyle(color: Colors.white70),
         errorText: '',
-        focusedErrorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.grey
-            )
-        ),
+        focusedErrorBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
         prefixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(start: 10.0, end: 30.0),
           child: Icon(
@@ -160,12 +157,11 @@ class _LoginPageState extends State<LoginPage> {
         suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
           child: InkWell(
-            child: Text(
-              'Help',
-              style: TextStyle(color: Colors.white54),
-            ),
-            onTap: _helpPassword
-          ),
+              child: Text(
+                'Help',
+                style: TextStyle(color: Colors.white54),
+              ),
+              onTap: _helpPassword),
         ),
         hintText: 'Enter password',
         hintStyle: TextStyle(
@@ -186,104 +182,141 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildSignInButton() {
-    return !_isLoading ? Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: OutlineButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          highlightedBorderColor: Colors.grey,
-          borderSide: BorderSide(
-            color: Colors.white70,
-          ),
-          padding: const EdgeInsets.all(22.0),
-          color: Colors.transparent,
-          child: Text(
-            'Sign In',
-            style: TextStyle(
-              color: Colors.white70,
-            ),
-          ),
-          onPressed: _signIn
-        )
+  Widget _buildConfirmPasswordTextFormField() {
+    return TextFormField(
+      controller: _confirmPasswordText,
+      enableInteractiveSelection: true,
+      obscureText: true,
+      style: TextStyle(
+        color: Colors.white,
       ),
-    ) : Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.grey,
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      cursorColor: Colors.grey,
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        errorStyle: TextStyle(color: Colors.white70),
+        errorText: '',
+        focusedErrorBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        prefixIcon: Padding(
+          padding: const EdgeInsetsDirectional.only(start: 10.0, end: 30.0),
+          child: Icon(
+            Icons.lock_outline,
+            color: Colors.grey,
+          ),
+        ),
+        suffixIcon: Padding(
+          padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
+          child: InkWell(
+              child: Text(
+                'Help',
+                style: TextStyle(color: Colors.white54),
+              ),
+              onTap: _helpPassword),
+        ),
+        hintText: 'Enter password',
+        hintStyle: TextStyle(
+          color: Colors.white30,
+        ),
+        labelText: 'PASSWORD',
+        labelStyle: TextStyle(
+          height: 0.8,
+          color: Colors.white70,
+        ),
       ),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Please confirm your password';
+        }
+
+        if (value != _passwordText.text) {
+          return 'Password does not match';
+        }
+        return null;
+      },
     );
   }
 
+  Widget _buildSignUpButton() {
+    return !_isLoading
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: SizedBox(
+                width: double.infinity,
+                child: OutlineButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    highlightedBorderColor: Colors.grey,
+                    borderSide: BorderSide(
+                      color: Colors.white70,
+                    ),
+                    padding: const EdgeInsets.all(22.0),
+                    color: Colors.transparent,
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    ),
+                    onPressed: _signUp)),
+          )
+        : Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+  }
+
   Widget _buildBottomWidget() {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'DON\'T HAVE AN ACCOUNT?',
-              style: TextStyle(color: Colors.white30),
-            ),
-            SizedBox(width: 8.0),
-            InkWell(
-              child: Text(
-                'SIGN UP',
-                style: TextStyle(color: Colors.white70),
-              ),
-              onTap: _signUp
-            )
-          ],
+        Text(
+          'ALREADY HAVE AN ACCOUNT?',
+          style: TextStyle(color: Colors.white30),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Forgot Password? ',
-              style: TextStyle(color: Colors.white30),
+        SizedBox(width: 8.0),
+        InkWell(
+            child: Text(
+              'SIGN IN',
+              style: TextStyle(color: Colors.white70),
             ),
-            SizedBox(width: 8.0),
-            InkWell(
-                child: Text(
-                  'Click Here',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                onTap: _navigateToForgotPassword
-            )
-          ],
-        ),
+            onTap: _signIn)
       ],
     );
   }
 
-  Widget _buildSnackbar(String message) {
+  Widget _buildSnackBar(String message) {
     return SnackBar(
       content: Text(message),
     );
   }
 
-  void _navigateToForgotPassword() {
-    print('Forgot Password Pressed!');
-    Navigator.of(context).pushNamed('/ForgotPassword');
-  }
-  void _signUp() {
+  void _signIn() {
     print('Sign Up Pressed!');
-    Navigator.of(context).pushNamed('/SignUp');
+    Navigator.of(context).pushNamed('/SignIn');
   }
 
-  void _signIn() {
+  void _signUp() {
     setState(() {
       _isLoading = true;
     });
     Future.delayed(const Duration(milliseconds: 1000)).then((_) {
       setState(() {
         if (_emailText.text.isEmpty && _passwordText.text.isEmpty) {
-          _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
+          _scaffoldKey.currentState
+              .showSnackBar(_buildSnackBar('Successfully Signed Up'));
           Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-            Navigator.of(context).pushNamed('/SignInSuccess');
+            Navigator.of(context).pushNamed('/SignIn');
           });
           _isLoading = false;
           return;
@@ -292,8 +325,11 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
           return;
         }
-        _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
-        Navigator.of(context).pushNamed('/SignInSuccess');
+        _scaffoldKey.currentState
+            .showSnackBar(_buildSnackBar('Successfully Signed Up'));
+        Future.delayed(const Duration(milliseconds: 1000)).then((_) {
+          Navigator.of(context).pushNamed('/SignUp');
+        });
         _isLoading = false;
       });
     });
