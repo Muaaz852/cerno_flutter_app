@@ -22,21 +22,24 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomInset: true,
+      // resizeToAvoidBottomPadding: true,
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
-          Padding(
-            padding: EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
-            child: Column(
-              children: <Widget>[
-                _buildLogo(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: _buildForm(),
-                ),
-              ],
+          SingleChildScrollView(
+                      child: Padding(
+              padding: EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
+              child: Column(
+                children: <Widget>[
+                  _buildLogo(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: _buildForm(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -87,14 +90,9 @@ class _LoginPageState extends State<LoginPage> {
           borderSide: BorderSide(color: Colors.grey),
         ),
         errorText: '',
-        errorStyle: TextStyle(
-          color: Colors.white70
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey
-          )
-        ),
+        errorStyle: TextStyle(color: Colors.white70),
+        focusedErrorBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
         prefixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(start: 10.0, end: 30.0),
           child: Icon(
@@ -142,15 +140,10 @@ class _LoginPageState extends State<LoginPage> {
         errorBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey),
         ),
-        errorStyle: TextStyle(
-            color: Colors.white70
-        ),
+        errorStyle: TextStyle(color: Colors.white70),
         errorText: '',
-        focusedErrorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.grey
-            )
-        ),
+        focusedErrorBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
         prefixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(start: 10.0, end: 30.0),
           child: Icon(
@@ -188,35 +181,35 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildSignInButton() {
-    return !_isLoading ? Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: OutlineButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          highlightedBorderColor: Colors.grey,
-          borderSide: BorderSide(
-            color: Colors.white70,
-          ),
-          padding: const EdgeInsets.all(22.0),
-          color: Colors.transparent,
-          child: Text(
-            'Sign In',
-            style: TextStyle(
-              color: Colors.white70,
+    return !_isLoading
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+            child: SizedBox(
+                width: double.infinity,
+                child: OutlineButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    highlightedBorderColor: Colors.grey,
+                    borderSide: BorderSide(
+                      color: Colors.white70,
+                    ),
+                    padding: const EdgeInsets.all(22.0),
+                    color: Colors.transparent,
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    ),
+                    onPressed: _signIn)),
+          )
+        : Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             ),
-          ),
-          onPressed: _signIn
-        )
-      ),
-    ) : Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.grey,
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      ),
-    );
+          );
   }
 
   Widget _buildBottomWidget() {
@@ -231,12 +224,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(width: 8.0),
             InkWell(
-              child: Text(
-                'SIGN UP',
-                style: TextStyle(color: Colors.white70),
-              ),
-              onTap: _signUp
-            )
+                child: Text(
+                  'SIGN UP',
+                  style: TextStyle(color: Colors.white70),
+                ),
+                onTap: _signUp)
           ],
         ),
         Row(
@@ -252,8 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                   'Click Here',
                   style: TextStyle(color: Colors.white70),
                 ),
-                onTap: _navigateToForgotPassword
-            )
+                onTap: _navigateToForgotPassword)
           ],
         ),
       ],
@@ -271,10 +262,11 @@ class _LoginPageState extends State<LoginPage> {
     // Navigator.of(context).pushNamed('/ForgotPassword');
     FluroRouter.router.navigateTo(context, '/ForgotPassword');
   }
+
   void _signUp() {
     print('Sign Up Pressed!');
-    FluroRouter.router.navigateTo(context, "/SignUp"); 
-    }
+    FluroRouter.router.navigateTo(context, "/SignUp");
+  }
 
   void _signIn() {
     setState(() {
@@ -283,7 +275,8 @@ class _LoginPageState extends State<LoginPage> {
     Future.delayed(const Duration(milliseconds: 1000)).then((_) {
       setState(() {
         if (_emailText.text.isEmpty && _passwordText.text.isEmpty) {
-          _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
+          _scaffoldKey.currentState
+              .showSnackBar(_buildSnackbar('Successfully Signed In'));
           Future.delayed(const Duration(milliseconds: 1000)).then((_) {
             // Navigator.of(context).pushNamed('/SignInSuccess');
             FluroRouter.router.navigateTo(context, '/SignInSuccess');
@@ -295,7 +288,8 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
           return;
         }
-        _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
+        _scaffoldKey.currentState
+            .showSnackBar(_buildSnackbar('Successfully Signed In'));
         // Navigator.of(context).pushNamed('/SignInSuccess');
         FluroRouter.router.navigateTo(context, '/SignInSuccess');
         _isLoading = false;

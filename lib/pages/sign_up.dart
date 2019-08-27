@@ -24,22 +24,24 @@ class _SignUpPageState extends State<SignUpPage> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
-          Padding(
-            padding:
-                EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
-            child: Column(
-              children: <Widget>[
-                _buildLogo(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: _buildForm(),
-                ),
-              ],
+          SingleChildScrollView(
+                      child: Padding(
+              padding:
+                  EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
+              child: Column(
+                children: <Widget>[
+                  _buildLogo(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: _buildForm(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -56,23 +58,21 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildForm() {
     return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          _buildEmailTextFormField(),
-          SizedBox(height: 10.0),
-          _buildPasswordTextFormField(),
-          SizedBox(
-            height: 10.0
-          ),
-          _buildConfirmPasswordTextFormField(),
-          SizedBox(height: 10.0),
-          _buildSignUpButton(),
-          SizedBox(height: 20.0),
-          _buildBottomWidget(),
-        ],
-      ),
-    );
+        key: _formKey,
+        child: Column(
+      children: <Widget>[
+        _buildEmailTextFormField(),
+        SizedBox(height: 10.0),
+        _buildPasswordTextFormField(),
+        SizedBox(height: 10.0),
+        _buildConfirmPasswordTextFormField(),
+        SizedBox(height: 10.0),
+        _buildSignUpButton(),
+        SizedBox(height: 20.0),
+        _buildBottomWidget(),
+      ],
+    ),
+      );
   }
 
   Widget _buildEmailTextFormField() {

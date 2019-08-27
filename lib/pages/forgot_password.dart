@@ -23,21 +23,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
-          Padding(
-            padding:
-                EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
-            child: Column(
-              children: <Widget>[
-                _buildLogo(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: _buildForm(),
-                ),
-              ],
+          SingleChildScrollView(
+                      child: Padding(
+              padding: EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
+              child: Column(
+                children: <Widget>[
+                  _buildLogo(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: _buildForm(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
