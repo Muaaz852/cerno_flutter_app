@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cerno_flutter_app/widgets/backgroun_gradient.dart';
 
+import 'package:cerno_flutter_app/util/fluro_router.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -20,17 +22,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
           Padding(
-            padding: EdgeInsets.only(top: screenSize.height / 7, bottom: 25.0),
+            padding: EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
             child: Column(
               children: <Widget>[
                 _buildLogo(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: _buildForm(),
                 ),
               ],
@@ -54,9 +57,9 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           _buildEmailTextFormField(),
-          SizedBox(height: 20.0),
+          SizedBox(height: 10.0),
           _buildPasswordTextFormField(),
-          SizedBox(height: 40.0),
+          SizedBox(height: 30.0),
           _buildSignInButton(),
           SizedBox(height: 30.0),
           _buildBottomWidget(),
@@ -155,16 +158,16 @@ class _LoginPageState extends State<LoginPage> {
             color: Colors.grey,
           ),
         ),
-        suffixIcon: Padding(
-          padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
-          child: InkWell(
-            child: Text(
-              'Help',
-              style: TextStyle(color: Colors.white54),
-            ),
-            onTap: _helpPassword
-          ),
-        ),
+        // suffixIcon: Padding(
+        //   padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
+        //   child: InkWell(
+        //     child: Text(
+        //       'Help',
+        //       style: TextStyle(color: Colors.white54),
+        //     ),
+        //     onTap: _helpPassword
+        //   ),
+        // ),
         hintText: 'Enter password',
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -265,12 +268,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void _navigateToForgotPassword() {
     print('Forgot Password Pressed!');
-    Navigator.of(context).pushNamed('/ForgotPassword');
+    // Navigator.of(context).pushNamed('/ForgotPassword');
+    FluroRouter.router.navigateTo(context, '/ForgotPassword');
   }
   void _signUp() {
     print('Sign Up Pressed!');
-    Navigator.of(context).pushNamed('/SignUp');
-  }
+    FluroRouter.router.navigateTo(context, "/SignUp"); 
+    }
 
   void _signIn() {
     setState(() {
@@ -281,7 +285,8 @@ class _LoginPageState extends State<LoginPage> {
         if (_emailText.text.isEmpty && _passwordText.text.isEmpty) {
           _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
           Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-            Navigator.of(context).pushNamed('/SignInSuccess');
+            // Navigator.of(context).pushNamed('/SignInSuccess');
+            FluroRouter.router.navigateTo(context, '/SignInSuccess');
           });
           _isLoading = false;
           return;
@@ -291,7 +296,8 @@ class _LoginPageState extends State<LoginPage> {
           return;
         }
         _scaffoldKey.currentState.showSnackBar(_buildSnackbar('Successfully Signed In'));
-        Navigator.of(context).pushNamed('/SignInSuccess');
+        // Navigator.of(context).pushNamed('/SignInSuccess');
+        FluroRouter.router.navigateTo(context, '/SignInSuccess');
         _isLoading = false;
       });
     });

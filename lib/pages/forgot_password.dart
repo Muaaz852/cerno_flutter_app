@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cerno_flutter_app/widgets/backgroun_gradient.dart';
 
+import 'package:cerno_flutter_app/util/fluro_router.dart';
+
 class ForgotPasswordPage extends StatefulWidget {
   @override
   _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
@@ -21,17 +23,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
           Padding(
             padding:
-                EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
+                EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
             child: Column(
               children: <Widget>[
                 _buildLogo(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: _buildForm(),
                 ),
               ],
@@ -174,7 +177,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _signIn() {
     print('Sign In Pressed!');
-    Navigator.of(context).pushNamed('/SignIn');
+    // Navigator.of(context).pushNamed('/SignIn');
+    FluroRouter.router.navigateTo(context, '/SignIn');
   }
 
   void _sendPasswordResetEmail() {

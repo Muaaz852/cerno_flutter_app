@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cerno_flutter_app/widgets/backgroun_gradient.dart';
 
+import 'package:cerno_flutter_app/util/fluro_router.dart';
+
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -22,13 +24,14 @@ class _SignUpPageState extends State<SignUpPage> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           BackgroundGradient(),
           Padding(
             padding:
-                EdgeInsets.only(top: screenSize.height / 10, bottom: 25.0),
+                EdgeInsets.only(top: screenSize.height / 9, bottom: 25.0),
             child: Column(
               children: <Widget>[
                 _buildLogo(),
@@ -57,13 +60,13 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Column(
         children: <Widget>[
           _buildEmailTextFormField(),
-          SizedBox(height: 15.0),
+          SizedBox(height: 10.0),
           _buildPasswordTextFormField(),
           SizedBox(
-            height: 15.0
+            height: 10.0
           ),
           _buildConfirmPasswordTextFormField(),
-          SizedBox(height: 25.0),
+          SizedBox(height: 10.0),
           _buildSignUpButton(),
           SizedBox(height: 20.0),
           _buildBottomWidget(),
@@ -152,15 +155,15 @@ class _SignUpPageState extends State<SignUpPage> {
             color: Colors.grey,
           ),
         ),
-        suffixIcon: Padding(
-          padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
-          child: InkWell(
-              child: Text(
-                'Help',
-                style: TextStyle(color: Colors.white54),
-              ),
-              onTap: _helpPassword),
-        ),
+        // suffixIcon: Padding(
+        //   padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
+        //   child: InkWell(
+        //       child: Text(
+        //         'Help',
+        //         style: TextStyle(color: Colors.white54),
+        //       ),
+        //       onTap: _helpPassword),
+        // ),
         hintText: 'Enter password',
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -210,15 +213,15 @@ class _SignUpPageState extends State<SignUpPage> {
             color: Colors.grey,
           ),
         ),
-        suffixIcon: Padding(
-          padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
-          child: InkWell(
-              child: Text(
-                'Help',
-                style: TextStyle(color: Colors.white54),
-              ),
-              onTap: _helpPassword),
-        ),
+        // suffixIcon: Padding(
+        //   padding: const EdgeInsetsDirectional.only(top: 16.0, bottom: 12.0),
+        //   child: InkWell(
+        //       child: Text(
+        //         'Help',
+        //         style: TextStyle(color: Colors.white54),
+        //       ),
+        //       onTap: _helpPassword),
+        // ),
         hintText: 'Enter password',
         hintStyle: TextStyle(
           color: Colors.white30,
@@ -300,8 +303,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signIn() {
-    print('Sign Up Pressed!');
-    Navigator.of(context).pushNamed('/SignIn');
+    print('Sign In Pressed!');
+    // Navigator.of(context).pushNamed('/SignIn');
+    FluroRouter.router.navigateTo(context, '/SignIn');
   }
 
   void _signUp() {
@@ -314,7 +318,8 @@ class _SignUpPageState extends State<SignUpPage> {
           _scaffoldKey.currentState
               .showSnackBar(_buildSnackBar('Successfully Signed Up'));
           Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-            Navigator.of(context).pushNamed('/SignIn');
+            // Navigator.of(context).pushNamed('/SignIn');
+            FluroRouter.router.navigateTo(context, '/SignIn');
           });
           _isLoading = false;
           return;
@@ -326,7 +331,8 @@ class _SignUpPageState extends State<SignUpPage> {
         _scaffoldKey.currentState
             .showSnackBar(_buildSnackBar('Successfully Signed Up'));
         Future.delayed(const Duration(milliseconds: 1000)).then((_) {
-          Navigator.of(context).pushNamed('/SignUp');
+          // Navigator.of(context).pushNamed('/SignUp');
+          FluroRouter.router.navigateTo(context, '/SignUp');
         });
         _isLoading = false;
       });
